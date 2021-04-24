@@ -10,6 +10,6 @@ qiankun的开发和打包和正常模式一模一样，它使用一个全局变�
 # 运行和打包
 在根目录下：
 
-先安装依赖： npm install，再执行npm run install-all为所有项目安装依赖，最后执行npm run start-all即可启动所有的项目。
+先安装依赖： npm install，再执行npm run install-all为所有项目安装依赖，最后执行npm run dev-all即可启动所有的项目。
 
 npm run build-all可以打包所有vue项目。
