@@ -1,0 +1,7 @@
+b-child/node_modules/
+b-child/dist/
+c-child/node_modules/
+c-child/dist/
+main-app/node_modules/
+main-app/dist/
+/node_modules
