@@ -1,7 +1,7 @@
 /*
  * @Author: Hzh
  * @Date: 2021-04-23 10:13:38
- * @LastEditTime: 2021-04-24 16:35:13
+ * @LastEditTime: 2021-04-25 15:56:50
  * @LastEditors: Hzh
  * @Description:
  */
@@ -20,7 +20,7 @@ let instance = null
 
 function render ({ container, parentStore } = {}) {
   router = new VueRouter({
-    base: window.__POWERED_BY_QIANKUN__ ? '/b-child' : '/',
+    base: window.__POWERED_BY_QIANKUN__ ? '/b-child' : process.env.BASE_URL,
     mode: 'history',
     routes
   })
@@ -30,11 +30,12 @@ function render ({ container, parentStore } = {}) {
     store,
     data () {
       return {
-        store: parentStore
+        parentStore
       }
     },
     render: h => h(App)
-  }).$mount(container ? container.querySelector('#bChild') : '#bChild')// index.html 里面的 id 需要改成 appVueHash，否则子项目无法独立运行
+  }).$mount(container ? container.querySelector('#bChild') : '#bChild')
+  // index.html 里面的 id 需要改成 appVueHash，否则子项目无法独立运行
 }
 
 if (!window.__POWERED_BY_QIANKUN__) {
@@ -47,8 +48,7 @@ if (!window.__POWERED_BY_QIANKUN__) {
  * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
  */
 export async function bootstrap () {
-  console.log('现在进入bootstraped阶段')
-  // console.log('vue app bootstraped')
+  console.log('现在进入子应用b-child的bootstraped阶段')
 }
 
 /**
@@ -59,19 +59,16 @@ export async function mount (props) {
     await props.parentStore.dispatch('getResource', { name: 'B应用的资源' })
   }
 
-  console.log('props from main framework', props)
-  // console.log('props from main framework', props)
+  console.log('现在进入子应用b-child的mount周期', props)
+
   render(props)
-  // 测试一下 body 的事件，不会被沙箱移除
-  // document.body.addEventListener('click', e => console.log('document.body.addEventListener'))
-  // document.body.onclick = e => console.log('document.body.addEventListener')
 }
 
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例
  */
 export async function unmount () {
-  console.log('现在进入unmount阶段')
+  console.log('现在进入子应用b-child的unmount阶段')
   instance.$destroy()
   instance.$el.innerHTML = ''
   instance = null

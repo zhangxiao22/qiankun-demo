@@ -1,7 +1,7 @@
 /*
  * @Author: Hzh
  * @Date: 2021-04-22 18:16:41
- * @LastEditTime: 2021-04-23 15:55:27
+ * @LastEditTime: 2021-04-25 15:58:34
  * @LastEditors: Hzh
  * @Description:
  */
@@ -15,7 +15,6 @@ const port = 8022 // 端口配置
 const { name } = require('./package')
 
 module.exports = {
-  // hash 模式下可使用
   publicPath: process.env.NODE_ENV === 'development' ? '/' : '/b-child/',
   outputDir: 'dist',
   assetsDir: 'static',

@@ -1,13 +1,13 @@
 <!--
  * @Author: Hzh
  * @Date: 2021-04-23 10:13:38
- * @LastEditTime: 2021-04-23 12:32:11
+ * @LastEditTime: 2021-04-25 09:49:52
  * @LastEditors: Hzh
  * @Description:
 -->
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

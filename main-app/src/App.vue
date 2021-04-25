@@ -1,7 +1,7 @@
 <!--
  * @Author: Hzh
  * @Date: 2021-04-23 09:57:53
- * @LastEditTime: 2021-04-24 22:05:25
+ * @LastEditTime: 2021-04-25 14:14:21
  * @LastEditors: Hzh
  * @Description:测试微前端
 -->
@@ -32,19 +32,19 @@
 </template>
 
 <script>
-import { loadMicroApp } from "qiankun";
-import { mapState } from "vuex";
+import { loadMicroApp } from 'qiankun'
+import { mapState } from 'vuex'
 export default {
-  name: "",
+  name: '',
 
   components: {},
 
   props: {},
 
-  data() {
+  data () {
     return {
       microApp: null
-    };
+    }
   },
 
   computed: {
@@ -55,44 +55,44 @@ export default {
 
   watch: {},
 
-  created() {},
+  created () {},
 
-  async mounted() {
+  async mounted () {
     // await this.loadMicroApps();
   },
 
   methods: {
-    async loadMicroApps() {
+    async loadMicroApps () {
       const apps = [
         {
-          name: "b-child",
-          entry: "//localhost:8022",
-          container: "#microContainer",
+          name: 'b-child',
+          entry: '//localhost:8022',
+          container: '#microContainer',
           props: {
             parentStore: this.$store,
-            msg: "我是父应用传过来的值,传递给B应用"
+            msg: '我是父应用传过来的值,传递给B应用'
           }
         },
         {
-          name: "c-child",
-          entry: "http://localhost:8033",
-          container: "#microContainer",
+          name: 'c-child',
+          entry: 'http://localhost:8033',
+          container: '#microContainer',
           props: {
             parentStore: this.$store,
-            msg: "我是父应用传过来的值，传递给C应用"
+            msg: '我是父应用传过来的值，传递给C应用'
           }
         }
-      ];
+      ]
 
       for await (const item of apps) {
-        this.microApp = loadMicroApp(item);
-        await this.microApp.mountPromise;
-        this.$forceUpdate(); // 解决视图不更新的问题
+        this.microApp = loadMicroApp(item)
+        await this.microApp.mountPromise
       }
-      this.microApp.unmount();
+      await this.microApp.unmount()
+      this.$forceUpdate() // 解决视图不更新的问题
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
