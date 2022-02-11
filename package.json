@@ -2,28 +2,30 @@
   "name": "qiankun-demo",
   "version": "1.0.0",
   "description": "用`qiankun`来实现`vue`技术栈的前端微服务",
-  "main": "index.js",
+  "author": "HZH",
   "scripts": {
-    "install:b-child": "cd b-child && npm install",
-    "install:c-child": "cd c-child && npm install",
-    "install:main-app": "cd main-app && npm install",
-    "install-all": "npm-run-all install:*",
-    "dev:b-child": "cd b-child && npm run dev ",
-    "dev:c-child": "cd c-child && npm run dev",
-    "dev:main-app": "cd main-app && npm run dev",
-    "start-all": "npm-run-all --parallel start:*",
-    "dev-all": "npm-run-all --parallel dev:*",
+    "lint": "vue-cli-service lint",
+    "build-all": "npm-run-all --parallel build:*",
     "build:hash": "cd b-child && npm run build",
     "build:history": "cd c-child && npm run build",
     "build:main": "cd main-app && npm run build",
-    "build-all": "npm-run-all --parallel build:*"
+    "dev-all": "npm-run-all --parallel dev:*",
+    "dev:b-child": "cd b-child && npm run dev ",
+    "dev:c-child": "cd c-child && npm run dev",
+    "dev:main-app": "cd main-app && npm run dev",
+    "install-all": "npm-run-all install:*",
+    "install:b-child": "cd b-child && cnpm install",
+    "install:c-child": "cd c-child && cnpm install",
+    "install:main-app": "cd main-app && cnpm install",
+    "start-all": "npm-run-all --parallel start:*"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "eslint": "^7.25.0",
+    "eslint-plugin-vue": "^8.4.1",
+    "npm-run-all": "^4.1.5"
   },
   "keywords": [],
-  "author": "HZH",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^7.25.0",
-    "eslint-plugin-vue": "^7.9.0",
-    "npm-run-all": "^4.1.5"
-  }
+  "license": "ISC"
 }

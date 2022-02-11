@@ -1,35 +1,14 @@
-<!--
- * @Author: Hzh
- * @Date: 2021-04-23 10:13:38
- * @LastEditTime: 2021-04-23 12:41:05
- * @LastEditors: Hzh
- * @Description:
--->
 <template>
   <div id="app">
+    <router-link to="/">home</router-link>
+    <router-link to="/about">about</router-link>
+    <div class="test-class"></div>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  border:1px solid blue;
 }
 </style>

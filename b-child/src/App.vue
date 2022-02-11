@@ -1,35 +1,60 @@
-<!--
- * @Author: Hzh
- * @Date: 2021-04-23 10:13:38
- * @LastEditTime: 2021-04-25 09:49:52
- * @LastEditors: Hzh
- * @Description:
--->
 <template>
   <div id="app">
+    子项目b 
+    {{globalState}}
+    <button @click="setData">B（token）</button>
+    <router-link to="/">home</router-link>
+    <router-link to="/about">about</router-link>
     <router-view />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import actions from '@/actions'
 
-#nav {
-  padding: 30px;
+export default {  
+  name: 'App',
+  components: {},
+  props: {},
+  data() {
+    return {
+      
+    }
+  },
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  computed: {
+   globalState() {
+     return this.$store.state.globalState
+   }
+  },
 
-    &.router-link-exact-active {
-      color: #42b983;
+  watch: {},
+
+  created() {
+   
+   
+  },
+
+  mounted() {
+   actions.onGlobalStateChange((state) => {
+     
+    //  this.globalState = state
+      console.log('state change>>>>>',state)
+      this.$store.commit('setGlobalState',state)
+    });
+  },
+
+  methods: {
+    setData() {
+      let data = {token:'bbbtoken'}
+      this.$store.commit('setGlobalState', data)
+      actions.setGlobalState(data)
     }
   }
+}
+</script>
+<style scoped lang="scss">
+#app {
+  border:1px solid red;
 }
 </style>

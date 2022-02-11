@@ -1,39 +1,28 @@
-<!--
- * @Author: Hzh
- * @Date: 2021-04-23 09:57:53
- * @LastEditTime: 2021-04-25 14:14:21
- * @LastEditors: Hzh
- * @Description:测试微前端
--->
 <template>
   <div id="app">
+    {{token}}
+    <button @click="handleclick">主（mainToken）</button>
     <header>
-      <router-link to="/about">主应用的page页面</router-link>
-      <router-link to="/b-child">子应用B</router-link>
+      <!-- <router-link to="/about">主应用的page页面</router-link> -->
+      <router-link to="/b-child">子应用B(默认)</router-link>
       <router-link to="/c-child">子应用C</router-link>
       <router-link to="/">回到主应用</router-link>
     </header>
-    <div style="margin:10px">
-      <button @click="loadMicroApps">手动加载子应用</button>
-    </div>
+    <!-- <button @click="loadMicroApps">手动加载子应用</button> -->
     <!-- id为appContainer就是放置子应用的容器 -->
     <div id="appContainer"></div>
-    <div
-      style="margin: 10px"
-      v-for="source in $store.state.sources"
-      :key="source.name"
-    >
-      {{ source.name }}
-    </div>
+
     <!-- 用来获取子应用的资源，不做展示 -->
-    <div style="display: none" id="microContainer"></div>
+    <div style="display: none"
+         id="microContainer"></div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { loadMicroApp } from 'qiankun'
-import { mapState } from 'vuex'
+// import { mapGetters } from 'vuex'
+import actions from "@/qiankun/actions";
 export default {
   name: '',
 
@@ -41,28 +30,44 @@ export default {
 
   props: {},
 
-  data () {
+  data() {
     return {
-      microApp: null
+      microApp: null,
     }
   },
 
   computed: {
-    ...mapState({
-      sources: state => state.sources
-    })
+    token() {
+      return this.$store.state.token
+    }
   },
 
   watch: {},
 
-  created () {},
+  created() {
+    actions.onGlobalStateChange((state, prevState) => {
+      // state: 变更后的状态; prevState: 变更前的状态
+      console.log("主应用观察者：state 改变前的值为 ", prevState);
+      console.log("主应用观察者：state 改变后的值为 ", state);
+      this.$store.commit('setState', state)
+      // this.globalState = state
+    });
+  },
 
-  async mounted () {
+  mounted() {
+
+    // setTimeout(() => {
+    // actions.setGlobalState({ token:'' })
+    // },3000)
     // await this.loadMicroApps();
   },
 
   methods: {
-    async loadMicroApps () {
+    handleclick() {
+      actions.setGlobalState({ token: 'mainToken' })
+      // this.$store.commit('setToken', 'mainToken')
+    },
+    async loadMicroApps() {
       const apps = [
         {
           name: 'b-child',
@@ -94,18 +99,15 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
 #app {
-  height: 100vh;
+  height: 200px;
   text-align: center;
-  position: relative;
-}
-header > a {
-  margin: 0 20px;
-}
-.appContainer {
-  background: #ccc;
-  padding: 20px;
+  header {
+    margin: 20px 0;
+    a {
+      margin: 0 20px;
+    }
+  }
 }
 </style>
